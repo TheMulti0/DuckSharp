@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 namespace DuckSharp.Models
 {
     [Serializable]
+    [XmlRoot("DuckDuckGoResponse")]
     public class InstantAnswer
     {
         public string Abstract { get; set; }

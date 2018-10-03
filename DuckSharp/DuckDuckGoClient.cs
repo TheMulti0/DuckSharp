@@ -58,8 +58,7 @@ namespace DuckSharp
         private static T DeserializeXml<T>(string response)
         {
             var serializer = new XmlSerializer(typeof(T));
-            var bytes = Encoding.UTF8.GetBytes(response);
-            using (var reader = new MemoryStream(bytes))
+            using (var reader = new StringReader(response))
             {
                 return (T)serializer.Deserialize(reader);
             }
