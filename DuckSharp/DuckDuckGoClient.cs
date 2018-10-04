@@ -2,6 +2,7 @@
 using System.Collections.Specialized;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -22,6 +23,7 @@ namespace DuckSharp
         private readonly int _jsonPretty;
 
         private CancellationToken _cancellationToken;
+        private HttpClient _client;
 
         public DuckDuckGoClient(
             ResponseFormat format = ResponseFormat.Json,
@@ -41,7 +43,7 @@ namespace DuckSharp
             _cancellationToken = cancellationToken;
         }
 
-        public async Task<InstantAnswer> Query(string query)
+        public async Task<InstantAnswer> QueryAsync(string query)
         {
             string url = BuildUrl(query);
             string response = await GetResponse(url);
@@ -67,23 +69,10 @@ namespace DuckSharp
 
         private async Task<string> GetResponse(string url)
         {
-            Stream responseStream;
-            if (_allowHtml)
-            {
-                WebRequest request = WebRequest.CreateHttp(url);
-                WebResponse response = await request.GetResponseAsync();
-                responseStream = response.GetResponseStream();
-            }
-            else
-            {
-                HttpWebRequest request = WebRequest.CreateHttp(url);
-                var response = (HttpWebResponse) await request.GetResponseAsync();
-                responseStream = response.GetResponseStream();
-            }
-            _cancellationToken.ThrowIfCancellationRequested();
-
-            var reader = new StreamReader(responseStream ?? throw new InvalidOperationException());
-            return await reader.ReadToEndAsync();
+            _client = _client ?? new HttpClient();
+            HttpResponseMessage httpResponseMessage = await _client.GetAsync(new Uri(url), _cancellationToken);
+            _cancellationToken.ThrowIfCancellationRequested();;
+            return await httpResponseMessage.Content.ReadAsStringAsync();
         }
 
         private string BuildUrl(string query)

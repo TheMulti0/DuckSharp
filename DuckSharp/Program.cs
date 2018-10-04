@@ -8,7 +8,7 @@ namespace DuckSharp
     {
         private static async Task Main(string[] args)
         {
-            InstantAnswer instantAnswer = await new DuckDuckGoClient().Query("DuckDuckGo");
+            InstantAnswer instantAnswer = await new DuckDuckGoClient().QueryAsync("DuckDuckGo");
             Console.WriteLine(instantAnswer.Answer);
             Console.ReadLine();
         }
