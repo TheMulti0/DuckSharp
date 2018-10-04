@@ -30,7 +30,7 @@ namespace DuckSharp.Models
 
         public string Entity { get; set; }
 
-        //public Result[] Results { get; set; }
+        public Result[] Results { get; set; }
         //public Topic[] RelatedTopics { get; set; }
 
         public InstantAnswerType Type { get; set; }

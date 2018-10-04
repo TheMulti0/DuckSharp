@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Threading.Tasks;
 using DuckSharp.Models;
 
 namespace DuckSharp
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
-            InstantAnswer instantAnswer = new DuckDuckGoClient("DuckDuckGo", ResponseFormat.Xml).Query().Result;
+            InstantAnswer instantAnswer = await new DuckDuckGoClient().Query("DuckDuckGo");
             Console.WriteLine(instantAnswer.Answer);
             Console.ReadLine();
         }
