@@ -11,7 +11,7 @@ namespace DuckSharp.Converters
             => objectType == typeof(RelatedTopics);
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) 
-            => JObject.Load(reader).ToObject<RelatedTopics>();
+            => new RelatedTopics();
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
