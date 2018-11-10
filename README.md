@@ -17,7 +17,7 @@ Alternatively, you can use the .NET Core CLI:
 > dotnet add package TheMulti0.DuckSharp
 ```
 
-### Usage
+### Basic Usage
 The simplest way to get an instant answer from DuckDuckGo using DuckSharp is the following:
 ```cs
 await new DuckSharpClient().GetInstantAnswerAsync("Apple");
@@ -26,7 +26,7 @@ You can also get [!bang redirect urls](https://duckduckgo.com/bang):
 ```cs
 await new DuckSharpClient().GetBangRedirectAsync("!youtube Kanye West - Fade");
 ```
-For a full documentation, be sure to checkout [this project's wiki page!](https://github.com/TheMulti0/DuckSharp/wiki)
+For the full documentation, be sure to checkout [this project's wiki page!](https://github.com/TheMulti0/DuckSharp/wiki)
 
 ## Contributing
 If any of you wants to contribute to this project, you can submit a pull request here, I promise that I'll review _any_ pull request that will be submitted. </br>
