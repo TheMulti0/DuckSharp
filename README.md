@@ -1,4 +1,7 @@
 # DuckSharp
+[![https://www.nuget.org/packages/TheMulti0.DuckSharp/](https://img.shields.io/badge/NuGet-1.0.0-green.svg)](https://www.nuget.org/packages/TheMulti0.DuckSharp/)
+
+
 This is a simple but yet powerful web API wrapper of the [DuckDuckGo Instant Answer API](https://duckduckgo.com/api).
 
 ## Getting Started
