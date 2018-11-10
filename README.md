@@ -4,7 +4,7 @@ This is a simple but yet powerful web API wrapper of the [DuckDuckGo Instant Ans
 ## Getting Started
 
 ### Requirements
-DuckSharp targets .NET Standard 1.1 - so your project **must**. See [Microsoft's guide on .NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-implementation-support).
+DuckSharp targets .NET Standard 1.1 - so your project **must** be compatible with it. See [Microsoft's guide on .NET Standard](https://docs.microsoft.com/en-us/dotnet/standard/net-standard#net-implementation-support).
 
 ### Installation
 DuckSharp can be installed from [NuGet](https://www.nuget.org/packages/TheMulti0.DuckSharp/). <br />
