@@ -22,7 +22,7 @@ The simplest way to get an instant answer from DuckDuckGo using DuckSharp is the
 ```cs
 await new DuckSharpClient().GetInstantAnswerAsync("Apple");
 ```
-You can also get [!bang redirects](https://duckduckgo.com/bang):
+You can also get [!bang redirect urls](https://duckduckgo.com/bang):
 ```cs
 await new DuckSharpClient().GetBangRedirectAsync("!youtube Kanye West - Fade");
 ```
