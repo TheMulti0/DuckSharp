@@ -1,16 +1,22 @@
-using System.Xml.Serialization;
 using Newtonsoft.Json;
 
 namespace DuckSharp.Models
 {
+    [JsonObject("RelatedTopic")]
     internal class RelatedTopics
     {
-        [JsonProperty("RelatedTopic")]
-        [XmlElement("RelatedTopic")]
-        public Topic[] Topics { get; set; }
+        public Topic Topic { get; }
         
-        [JsonProperty("RelatedTopicsSection")]
-        [XmlElement("RelatedTopicsSection")]
-        public RelatedTopicSection[] RelatedTopicSections { get; set; }
+        public RelatedTopicSection RelatedTopicSection { get; }
+
+        public RelatedTopics(Topic topic)
+        {
+            Topic = topic;
+        }
+
+        public RelatedTopics(RelatedTopicSection relatedTopicSection)
+        {
+            RelatedTopicSection = relatedTopicSection;
+        }
     }
 }

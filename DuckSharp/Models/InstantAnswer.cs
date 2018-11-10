@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Linq;
 using System.Threading;
-using System.Xml.Serialization;
 using Newtonsoft.Json;
 
 namespace DuckSharp.Models
 {
-    [Serializable]
-    [XmlRoot("DuckDuckGoResponse")]
     public class InstantAnswer
     {
         [JsonProperty("RelatedTopics")]
-        [XmlElement("RelatedTopics")]
-        internal RelatedTopics _relatedTopics { get; set; }
+        internal RelatedTopics[] InternalRelatedTopics { get; set; }
         
         /// <summary>
         /// Instant Answer response category
@@ -39,7 +34,6 @@ namespace DuckSharp.Models
         /// </summary>
         /// <seealso cref="AbstractSource"/>
         [JsonProperty("AbstractURL")]
-        [XmlElement("AbstractURL")]
         public string AbstractUrl { get; set; }
 
         /// <summary>
@@ -47,7 +41,6 @@ namespace DuckSharp.Models
         /// </summary>
         /// <seealso cref="Abstract"/>
         [JsonProperty("Image")]
-        [XmlElement("Image")]
         public string ImageUrl { get; set; }
 
         /// <summary>
@@ -81,7 +74,6 @@ namespace DuckSharp.Models
         /// </summary>
         /// <seealso cref="DefinitionSource"/>
         [JsonProperty("DefinitionUrl")]
-        [XmlElement("DefinitionUrl")]
         public string DefinitionUrl { get; set; }
 
         public string Entity { get; set; }
@@ -96,25 +88,30 @@ namespace DuckSharp.Models
         /// Related topics related to the query
         /// </summary>
         [JsonIgnore]
-        [XmlIgnore]
-        public Topic[] RelatedTopics => _relatedTopics.Topics;
+        public Topic[] RelatedTopics => 
+            InternalRelatedTopics
+                .Where(r => r.Topic != null)
+                .Select(r => r.Topic)
+                .ToArray();
         
         /// <summary>
         /// Sections of related topics related to the query
         /// </summary>
         /// <seealso cref="RelatedTopics"/>
         [JsonIgnore]
-        [XmlIgnore]
-        public RelatedTopicSection[] RelatedTopicSection => _relatedTopics.RelatedTopicSections;
-
+        public RelatedTopicSection[] RelatedTopicSection => 
+            InternalRelatedTopics
+                .Where(r => r.RelatedTopicSection != null)
+                .Select(r => r.RelatedTopicSection)
+                .ToArray();
+        
         /// <summary>
         /// !bang redirect URL
         /// </summary>
-        /// <seealso cref="DuckSharpClient.BangAsync(string, CancellationToken)">
+        /// <seealso cref="DuckSharpClient.GetBangRedirectAsync">
         /// Use DuckDuckGoClient.BangAsync(string) for !bang queries
         /// </seealso>
         [JsonProperty("RedirectURL")]
-        [XmlElement("RedirectURL")]
         public string RedirectUrl { get; set; }
     }
 }   

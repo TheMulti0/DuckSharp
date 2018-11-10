@@ -21,8 +21,8 @@ namespace DuckSharp.Converters
                     return InstantAnswerType.Article;
                 case "D":
                     return InstantAnswerType.Disambiguation;
-                case "C"
-                    : return InstantAnswerType.Category;
+                case "C":
+                    return InstantAnswerType.Category;
                 case "N":
                     return InstantAnswerType.Name;
                 case "E":
