@@ -1,4 +1,2 @@
 language: csharp
 solution: DuckSharp.sln
-install:
-  - nuget restore solution-name.sln
