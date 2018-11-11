@@ -1,9 +1,4 @@
-version: 1.0.{build}
-before_build:
-- cmd: nuget restore
-build:
-  project: DuckSharp.sln
-  verbosity: minimal
-environment:
-  COVERALLS_REPO_TOKEN:
-    secure: 54kKiHA9dqVUCtDa0VK1jtciKQzLlBuZs
+language: csharp
+solution: DuckSharp.sln
+install:
+  - nuget restore solution-name.sln
