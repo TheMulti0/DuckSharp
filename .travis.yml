@@ -5,4 +5,4 @@ dotnet: 2.1.302
 dist: trusty
 script:
   - dotnet build -c Release
-  - dotnet test -c Release
+  - dotnet test DuckSharp.Tests/DuckSharp.Tests.csproj -c release
