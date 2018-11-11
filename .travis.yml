@@ -1,7 +1,7 @@
 language: csharp
 solution: DuckSharp.sln
 mono: none
-dotnet: 2.0.0
+dotnet: 2.1.302
 dist: trusty
 script:
   - dotnet build -c Release
