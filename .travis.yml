@@ -8,5 +8,5 @@ script:
   - dotnet build -c Release
   - dotnet tool install -g coveralls.net --version 1.0.0
   - export PATH="$PATH:/home/travis/.dotnet/tools"
-  - dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -c release
+  - dotnet test DuckSharp.Tests /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -c release
   - csmacnz.Coveralls --opencover -i DuckSharp.Tests/coverage.opencover.xml --useRelativePaths
