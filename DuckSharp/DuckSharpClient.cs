@@ -20,6 +20,7 @@ namespace DuckSharp
         private readonly bool _allowDisambiguation;
         private readonly bool _allowHtml;
         private readonly string _applicationName;
+        private readonly bool _shouldDispose;
 
         private HttpClient _client;
 
@@ -37,10 +38,36 @@ namespace DuckSharp
             _applicationName = applicationName;
             _allowHtml = allowHtml;
             _allowDisambiguation = allowDisambiguation;
+            _shouldDispose = true;
+        }
+        
+        /// <summary>
+        /// Constructs a DuckSharpClient with given optional parameters
+        /// </summary>
+        /// <param name="applicationName">Application name for DuckDuckGo API caller (set to 'DuckSharp' by default)</param>
+        /// <param name="allowHtml">Allow HTML in text, e.g. bold and italics</param>
+        /// <param name="allowDisambiguation">Allow disambiguation answers</param>
+        public DuckSharpClient(
+            HttpClient client,
+            bool disposeClient = true,
+            string applicationName = "DuckSharp",
+            bool allowHtml = true,
+            bool allowDisambiguation = true)
+        {
+            _client = client;
+            _shouldDispose = disposeClient;
+            _applicationName = applicationName;
+            _allowHtml = allowHtml;
+            _allowDisambiguation = allowDisambiguation;
         }
 
-        public void Dispose() 
-            => _client?.Dispose();
+        public void Dispose()
+        {
+            if (_shouldDispose)
+            {
+                _client?.Dispose();
+            }
+        }
 
         /// <summary>
         /// Returns an instant answer from DuckDuckGo API with the given query
