@@ -6,7 +6,7 @@ dist: trusty
 sudo: required
 script:
   - dotnet build -c Release
-  - dotnet test DuckSharp.Tests/DuckSharp.Tests.csproj -c release
   - dotnet tool install -g coveralls.net --version 1.0.0
   - export PATH="$PATH:/home/travis/.dotnet/tools"
-  - csmacnz.Coveralls --opencover -i DuckSharp.Tests/coverage.json --useRelativePaths
+  - dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover -c release
+  - csmacnz.Coveralls --opencover -i DuckSharp.Tests/coverage.opencover.xml --useRelativePaths
