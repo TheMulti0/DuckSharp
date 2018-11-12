@@ -20,7 +20,7 @@ namespace DuckSharp
         private readonly bool _allowDisambiguation;
         private readonly bool _allowHtml;
         private readonly string _applicationName;
-        private readonly bool _shouldDispose;
+        private readonly bool _disposeClient;
 
         private HttpClient _client;
 
@@ -30,40 +30,25 @@ namespace DuckSharp
         /// <param name="applicationName">Application name for DuckDuckGo API caller (set to 'DuckSharp' by default)</param>
         /// <param name="allowHtml">Allow HTML in text, e.g. bold and italics</param>
         /// <param name="allowDisambiguation">Allow disambiguation answers</param>
+        /// <param name="client">Used for using a custom HttpClient</param>
+        /// <param name="disposeClient">Dispose the client when disposing the DuckSharpClient</param>
         public DuckSharpClient(
             string applicationName = "DuckSharp",
             bool allowHtml = true,
-            bool allowDisambiguation = true)
+            bool allowDisambiguation = true,
+            HttpClient client = null,
+            bool disposeClient = true)
         {
             _applicationName = applicationName;
             _allowHtml = allowHtml;
             _allowDisambiguation = allowDisambiguation;
-            _shouldDispose = true;
-        }
-        
-        /// <summary>
-        /// Constructs a DuckSharpClient with given optional parameters
-        /// </summary>
-        /// <param name="applicationName">Application name for DuckDuckGo API caller (set to 'DuckSharp' by default)</param>
-        /// <param name="allowHtml">Allow HTML in text, e.g. bold and italics</param>
-        /// <param name="allowDisambiguation">Allow disambiguation answers</param>
-        public DuckSharpClient(
-            HttpClient client,
-            bool disposeClient = true,
-            string applicationName = "DuckSharp",
-            bool allowHtml = true,
-            bool allowDisambiguation = true)
-        {
-            _client = client;
-            _shouldDispose = disposeClient;
-            _applicationName = applicationName;
-            _allowHtml = allowHtml;
-            _allowDisambiguation = allowDisambiguation;
+            _client = client ?? new HttpClient();
+            _disposeClient = disposeClient;
         }
 
         public void Dispose()
         {
-            if (_shouldDispose)
+            if (_disposeClient)
             {
                 _client?.Dispose();
             }
