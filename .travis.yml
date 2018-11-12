@@ -3,8 +3,9 @@ solution: DuckSharp.sln
 mono: none
 dotnet: 2.1.302
 dist: trusty
+sudo: required
 script:
-  - dotnet tool install -g coveralls.net --version 1.0.0
   - dotnet build -c Release
   - dotnet test DuckSharp.Tests/DuckSharp.Tests.csproj -c release
+  - dotnet tool install -g coveralls.net --version 1.0.0
   - csmacnz.Coveralls --opencover -i DuckSharp.Tests/coverage.json --useRelativePaths
