@@ -24,7 +24,7 @@ Alternatively, you can use the .NET Core CLI:
 ```
 
 ### Basic Usage
-The simplest way to get an instant answer from DuckDuckGo using DuckSharp is the following:
+The simplest way to get an instant answer from DuckDuckGo using DuckSharp is the following (the following examples do not implement the `IDisposable` interface of the client, please wrap the client with a `using` statement when using it):
 ```cs
 await new DuckSharpClient().GetInstantAnswerAsync("Apple");
 ```
