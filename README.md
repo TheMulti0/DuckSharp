@@ -1,6 +1,6 @@
 # DuckSharp
 [![https://www.nuget.org/packages/TheMulti0.DuckSharp/](https://img.shields.io/nuget/v/TheMulti0.DuckSharp.svg)](https://www.nuget.org/packages/TheMulti0.DuckSharp/) 
-[![NuGet Downloads](https://img.shields.io/nuget/dt/TheMulti0.DuckSharp.svg)](https://www.nuget.org/stats/packages/TheMulti0.DuckSharp)
+[![NuGet Downloads](https://img.shields.io/nuget/dt/TheMulti0.DuckSharp.svg)](https://www.nuget.org/stats/packages/TheMulti0.DuckSharp?groupby=Version)
 [![Build Status](https://travis-ci.org/TheMulti0/DuckSharp.svg?branch=master)](https://travis-ci.org/TheMulti0/DuckSharp) 
 [![Coverage Status](https://coveralls.io/repos/github/TheMulti0/DuckSharp/badge.svg?branch=)](https://coveralls.io/github/TheMulti0/DuckSharp?branch=)
 
@@ -16,7 +16,7 @@ DuckSharp targets .NET Standard 1.1 - so your project **must** be compatible wit
 DuckSharp can be installed from [NuGet](https://www.nuget.org/packages/TheMulti0.DuckSharp/). <br />
 You can install it from Visual Studio's userinterface, or from the package manager console:
 ```ps1
-PM> Install-Package TheMulti0.DuckSharp -Version 1.0.0
+PM> Install-Package TheMulti0.DuckSharp
 ```
 Alternatively, you can use the .NET Core CLI:
 ```bash
