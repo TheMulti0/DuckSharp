@@ -34,6 +34,9 @@ await new DuckSharpClient().GetBangRedirectAsync("!youtube Kanye West - Fade");
 ```
 For the full documentation, be sure to checkout [this project's wiki page!](https://github.com/TheMulti0/DuckSharp/wiki)
 
+## License
+[This project is licensed under the MIT license](https://github.com/TheMulti0/DuckSharp/blob/master/LICENSE)
+
 ## Contributing
 If any of you wants to contribute to this project, you can submit a pull request here, I promise that I'll review _any_ pull request that will be submitted. </br>
 Please use my `.dotsettings` file and preserve Microsofts C# conventions and my coding style!
