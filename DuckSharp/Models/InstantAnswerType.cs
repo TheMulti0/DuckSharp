@@ -1,4 +1,4 @@
-﻿namespace DuckSharp.Models
+﻿namespace DuckSharp
 {
     public enum InstantAnswerType
     {

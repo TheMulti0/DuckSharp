@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using DuckSharp.Models;
+using DuckSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

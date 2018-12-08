@@ -1,6 +1,6 @@
-using System;
-using DuckSharp.Models;
+using DuckSharp;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace DuckSharp.Tests
 {
@@ -12,41 +12,32 @@ namespace DuckSharp.Tests
         [TestMethod]
         public void TestDisambiguation()
         {
-            using (_client)
+            var result = _client.GetInstantAnswerAsync("apple").Result;
+            if (result.RelatedTopicSection == null || result.RelatedTopics == null)
             {
-                InstantAnswer result = _client.GetInstantAnswerAsync("apple").Result;
-                if (result.RelatedTopicSection == null || result.RelatedTopics == null)
-                {
-                    Assert.Fail();
-                }
+                Assert.Fail();
             }
         }
 
         [TestMethod]
         public void TestHebrew()
         {
-            using (_client)
+            var result = _client.GetInstantAnswerAsync("ωμεν").Result;
+            if (result == null)
             {
-                InstantAnswer result = _client.GetInstantAnswerAsync("ωμεν").Result;
-                if (result == null)
-                {
-                    Assert.Fail();
-                }
+                Assert.Fail();
             }
         }
 
         [TestMethod]
         public void TestFiglet()
         {
-            using (_client)
+            var result = _client.GetInstantAnswerAsync("figlet hi").Result;
+            const string answer = " _     _ \n| |__ (_)\n| &#x27;_ &#92;| |\n| | | | |\n|_| |_|_|\n         \n";
+            if (result.AnswerType.ToLower() != "figlet" ||
+                !string.Equals(result.Answer, answer, StringComparison.CurrentCultureIgnoreCase))
             {
-                InstantAnswer result = _client.GetInstantAnswerAsync("figlet hi").Result;
-                const string answer = " _     _ \n| |__ (_)\n| &#x27;_ &#92;| |\n| | | | |\n|_| |_|_|\n         \n";
-                if (result.AnswerType.ToLower() != "figlet" ||
-                    !string.Equals(result.Answer, answer, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    Assert.Fail();
-                }
+                Assert.Fail();
             }
         }
     }

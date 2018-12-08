@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace DuckSharp.Models
+namespace DuckSharp
 {
     public class Icon
     {
