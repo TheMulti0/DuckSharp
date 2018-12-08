@@ -3,6 +3,19 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <Version>1.0.1</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>TheMulti0</Authors>
+    <PackageId>TheMulti0.DuckSharp</PackageId>
+    <Company></Company>
+    <PackageIconUrl>https://github.com/TheMulti0/DuckSharp/blob/master/DuckDuckGo.png?raw=true</PackageIconUrl>
+    <Description>An unofficial asynchronous .NET DuckDuckGo Instant Answer Web API wrapper</Description>
+    <PackageProjectUrl>https://github.com/TheMulti0/DuckSharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TheMulti0/DuckSharp</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageTags>DuckDuckGo Search InstantAnswer ApiWrapper</PackageTags>
+    <PackageReleaseNotes>Added more constructor parameters.</PackageReleaseNotes>
+    <PackageLicenseUrl>https://github.com/TheMulti0/DuckSharp/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>
