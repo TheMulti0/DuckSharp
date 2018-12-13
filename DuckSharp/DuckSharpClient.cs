@@ -20,7 +20,7 @@ namespace DuckSharp
         private readonly bool _allowHtml;
         private readonly string _applicationName;
 
-        protected static readonly HttpClient HttpClient = new HttpClient();
+        protected static HttpClient HttpClient;
 
         /// <summary>
         /// Constructs a DuckSharpClient with given optional parameters
@@ -28,14 +28,17 @@ namespace DuckSharp
         /// <param name="applicationName">Application name for DuckDuckGo API caller (set to 'DuckSharp' by default)</param>
         /// <param name="allowHtml">Allow HTML in text, e.g. bold and italics</param>
         /// <param name="allowDisambiguation">Allow disambiguation answers</param>
+        /// <param name="client">Used for using a custom HttpClient</param>
         public DuckSharpClient(
             string applicationName = "DuckSharp",
             bool allowHtml = true,
-            bool allowDisambiguation = true)
+            bool allowDisambiguation = true,
+            HttpClient client = null)
         {
             _applicationName = applicationName;
             _allowHtml = allowHtml;
             _allowDisambiguation = allowDisambiguation;
+            HttpClient = client ?? new HttpClient();
         }
 
         /// <summary>
