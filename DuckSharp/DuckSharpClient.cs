@@ -6,23 +6,21 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DuckSharp.Converters;
-using DuckSharp.Models;
+using DuckSharp;
 using Newtonsoft.Json;
 
 namespace DuckSharp
 {
-    /// <inheritdoc />
     /// <summary>
     /// DuckDuckGo Disposable Multi-purpose API Client
     /// </summary>
-    public class DuckSharpClient : IDisposable
+    public class DuckSharpClient
     {
         private readonly bool _allowDisambiguation;
         private readonly bool _allowHtml;
         private readonly string _applicationName;
-        private readonly bool _disposeClient;
 
-        private HttpClient _client;
+        protected static readonly HttpClient HttpClient = new HttpClient();
 
         /// <summary>
         /// Constructs a DuckSharpClient with given optional parameters
@@ -30,28 +28,14 @@ namespace DuckSharp
         /// <param name="applicationName">Application name for DuckDuckGo API caller (set to 'DuckSharp' by default)</param>
         /// <param name="allowHtml">Allow HTML in text, e.g. bold and italics</param>
         /// <param name="allowDisambiguation">Allow disambiguation answers</param>
-        /// <param name="client">Used for using a custom HttpClient</param>
-        /// <param name="disposeClient">Dispose the client when disposing the DuckSharpClient</param>
         public DuckSharpClient(
             string applicationName = "DuckSharp",
             bool allowHtml = true,
-            bool allowDisambiguation = true,
-            HttpClient client = null,
-            bool disposeClient = true)
+            bool allowDisambiguation = true)
         {
             _applicationName = applicationName;
             _allowHtml = allowHtml;
             _allowDisambiguation = allowDisambiguation;
-            _client = client ?? new HttpClient();
-            _disposeClient = disposeClient;
-        }
-
-        public void Dispose()
-        {
-            if (_disposeClient)
-            {
-                _client?.Dispose();
-            }
         }
 
         /// <summary>
@@ -64,27 +48,27 @@ namespace DuckSharp
             string query,
             CancellationToken token = default) => 
                 JsonConvert.DeserializeObject<InstantAnswer>(
-                    await GetApiResponse(query, token: token),
+                    await GetApiResponse(query, token).ConfigureAwait(false),
                     new InstantAnswerTypeConverter(),
                     new RelatedTopicsConverter());
 
         /// <summary>
         /// Returns a !bang redirect URL for the given query
         /// </summary>
-        /// <param name="query"></param>
-        /// <param name="token"></param>
+        /// <param name="query">The query</param>
+        /// <param name="token">The cancellation token</param>
         /// <returns>The task object representing the asynchronous operation</returns>
         public async Task<string> GetBangRedirectAsync(
             string query,
             CancellationToken token = default) =>
-                (await GetInstantAnswerAsync(query, token)).RedirectUrl;
+                (await GetInstantAnswerAsync(query, token).ConfigureAwait(false)).RedirectUrl;
 
         private async Task<string> GetApiResponse(
             string query,
             CancellationToken token = default)
         {
             Uri uri = BuildUri(query);
-            return await GetResponse(uri, token);
+            return await GetResponse(uri, token).ConfigureAwait(false);
         }
 
         private Uri BuildUri(string query)
@@ -117,10 +101,9 @@ namespace DuckSharp
 
         private async Task<string> GetResponse(Uri uri, CancellationToken token)
         {
-            _client = _client ?? new HttpClient();
-            using (HttpResponseMessage httpResponse = await _client.GetAsync(uri, token))
+            using (HttpResponseMessage httpResponse = await HttpClient.GetAsync(uri, token).ConfigureAwait(false))
             {
-                return await httpResponse.Content.ReadAsStringAsync();
+                return await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
             }
         }
     }

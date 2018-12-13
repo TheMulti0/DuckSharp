@@ -1,5 +1,5 @@
 ﻿using System;
-using DuckSharp.Models;
+using DuckSharp;
 using Newtonsoft.Json;
 
 namespace DuckSharp.Converters
