@@ -38,7 +38,9 @@ namespace DuckSharp
             _applicationName = applicationName;
             _allowHtml = allowHtml;
             _allowDisambiguation = allowDisambiguation;
-            HttpClient = client ?? new HttpClient();
+            
+            HttpClient defaultClient = (HttpClient ?? new HttpClient());
+            HttpClient = client ?? defaultClient;
         }
 
         /// <summary>
