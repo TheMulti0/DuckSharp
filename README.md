@@ -2,7 +2,6 @@
 [![https://www.nuget.org/packages/TheMulti0.DuckSharp/](https://img.shields.io/nuget/v/TheMulti0.DuckSharp.svg)](https://www.nuget.org/packages/TheMulti0.DuckSharp/) 
 [![NuGet Downloads](https://img.shields.io/nuget/dt/TheMulti0.DuckSharp.svg)](https://www.nuget.org/stats/packages/TheMulti0.DuckSharp?groupby=Version)
 [![Build Status](https://travis-ci.org/TheMulti0/DuckSharp.svg?branch=master)](https://travis-ci.org/TheMulti0/DuckSharp) 
-[![Coverage Status](https://coveralls.io/repos/github/TheMulti0/DuckSharp/badge.svg?branch=)](https://coveralls.io/github/TheMulti0/DuckSharp?branch=)
 
 
 This is a simple but yet powerful web API wrapper of the [DuckDuckGo Instant Answer API](https://duckduckgo.com/api).
