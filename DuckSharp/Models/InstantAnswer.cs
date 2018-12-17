@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading;
 using Newtonsoft.Json;
 
 namespace DuckSharp

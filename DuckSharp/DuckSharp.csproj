@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>TheMulti0</Authors>
     <PackageId>TheMulti0.DuckSharp</PackageId>
@@ -14,8 +14,9 @@
     <RepositoryUrl>https://github.com/TheMulti0/DuckSharp</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageTags>DuckDuckGo Search InstantAnswer ApiWrapper</PackageTags>
-    <PackageReleaseNotes>Added more constructor parameters.</PackageReleaseNotes>
+    <PackageReleaseNotes>Improved performance for HTTP client</PackageReleaseNotes>
     <PackageLicenseUrl>https://github.com/TheMulti0/DuckSharp/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>

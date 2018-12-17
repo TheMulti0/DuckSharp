@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using DuckSharp.Converters;
-using DuckSharp;
 using Newtonsoft.Json;
 
 namespace DuckSharp
@@ -16,11 +15,11 @@ namespace DuckSharp
     /// </summary>
     public class DuckSharpClient
     {
+        protected static HttpClient HttpClient;
+
         private readonly bool _allowDisambiguation;
         private readonly bool _allowHtml;
         private readonly string _applicationName;
-
-        protected static HttpClient HttpClient;
 
         /// <summary>
         /// Constructs a DuckSharpClient with given optional parameters
@@ -38,8 +37,8 @@ namespace DuckSharp
             _applicationName = applicationName;
             _allowHtml = allowHtml;
             _allowDisambiguation = allowDisambiguation;
-            
-            HttpClient defaultClient = (HttpClient ?? new HttpClient());
+
+            HttpClient defaultClient = HttpClient ?? new HttpClient();
             HttpClient = client ?? defaultClient;
         }
 
@@ -47,38 +46,36 @@ namespace DuckSharp
         /// Returns an instant answer from DuckDuckGo API with the given query
         /// </summary>
         /// <param name="query">Search query</param>
-        /// <param name="token">Cancellation token</param>
+        /// <param name="token">The cancellation token</param>
         /// <returns>The task object representing the asynchronous operation</returns>
-        public async Task<InstantAnswer> GetInstantAnswerAsync(
-            string query,
-            CancellationToken token = default) => 
-                JsonConvert.DeserializeObject<InstantAnswer>(
-                    await GetApiResponse(query, token).ConfigureAwait(false),
-                    new InstantAnswerTypeConverter(),
-                    new RelatedTopicsConverter());
+        public async Task<InstantAnswer> GetInstantAnswerAsync(string query, CancellationToken token = default) =>
+            JsonConvert.DeserializeObject<InstantAnswer>(
+                await GetApiResponse(query, token)
+                   .ConfigureAwait(false),
+                new InstantAnswerTypeConverter(),
+                new RelatedTopicsConverter());
 
         /// <summary>
         /// Returns a !bang redirect URL for the given query
         /// </summary>
-        /// <param name="query">The query</param>
+        /// <param name="query">Search query</param>
         /// <param name="token">The cancellation token</param>
         /// <returns>The task object representing the asynchronous operation</returns>
-        public async Task<string> GetBangRedirectAsync(
-            string query,
-            CancellationToken token = default) =>
-                (await GetInstantAnswerAsync(query, token).ConfigureAwait(false)).RedirectUrl;
+        public async Task<string> GetBangRedirectAsync(string query, CancellationToken token = default) 
+            => (await GetInstantAnswerAsync(query, token)
+                   .ConfigureAwait(false))
+               .RedirectUrl;
 
-        private async Task<string> GetApiResponse(
-            string query,
-            CancellationToken token = default)
+        private async Task<string> GetApiResponse(string query, CancellationToken token = default)
         {
             Uri uri = BuildUri(query);
-            return await GetResponse(uri, token).ConfigureAwait(false);
+            return await GetResponse(uri, token)
+               .ConfigureAwait(false);
         }
 
         private Uri BuildUri(string query)
         {
-            var parameters = new Dictionary<string, string>
+            Dictionary<string, string> parameters = new Dictionary<string, string>
             {
                 ["q"] = query,
                 ["q"] = query,
@@ -91,10 +88,9 @@ namespace DuckSharp
             };
 
             var queryBuilder = new StringBuilder();
-            foreach (var pair in parameters)
+            foreach (KeyValuePair<string, string> pair in parameters)
             {
-                queryBuilder.AppendFormat(
-                    CultureInfo.InvariantCulture, "{0}={1}&", pair.Key, pair.Value);
+                queryBuilder.AppendFormat(CultureInfo.InvariantCulture, "{0}={1}&", pair.Key, pair.Value);
             }
 
             var builder = new UriBuilder("https://api.duckduckgo.com")
@@ -104,11 +100,14 @@ namespace DuckSharp
             return builder.Uri;
         }
 
-        private async Task<string> GetResponse(Uri uri, CancellationToken token)
+        private static async Task<string> GetResponse(Uri uri, CancellationToken token)
         {
-            using (HttpResponseMessage httpResponse = await HttpClient.GetAsync(uri, token).ConfigureAwait(false))
+            HttpResponseMessage response = await HttpClient.GetAsync(uri, token)
+               .ConfigureAwait(false);
+            using (response)
             {
-                return await httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                return await response.Content.ReadAsStringAsync()
+                   .ConfigureAwait(false);
             }
         }
     }
